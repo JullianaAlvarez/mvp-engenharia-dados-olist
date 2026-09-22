@@ -350,3 +350,23 @@ Possui granularidade de **uma linha por data** e permite a realização de anál
 
 A dimensão `dm_tempo` é utilizada como referência para a data de compra, permitindo análises por dia, mês, trimestre e ano. As demais datas relacionadas ao ciclo do pedido permanecem como atributos da ft_pedidos.
 
+#### 3.3.2 Diagrama do Modelo Analítico
+
+O diagrama abaixo apresenta a estrutura do modelo analítico proposto, suas tabelas fato e dimensão e os relacionamentos utilizados entre elas.
+
+![Modelo dimensional](images/modelo_dimensional.png)
+
+Os relacionamentos definidos no modelo são:
+
+| Tabela de origem | Campo | Cardinalidade | Tabela relacionada | Campo |
+|---|---|---|---|---|
+| `dm_tempo` | `data` | 1:N | `ft_pedidos` | `data_compra` |
+| `dm_tempo` | `data` | 1:N | `ft_vendas` | `data_compra` |
+| `dm_produto` | `id_produto` | 1:N | `ft_vendas` | `id_produto` |
+| `ft_pedidos` | `id_pedido` | 1:N | `ft_pagamentos` | `id_pedido` |
+
+A relação entre `ft_pedidos` e `ft_pagamentos` representa o fato de que um pedido pode possuir um ou mais registros de pagamento.
+
+Embora `ft_pedidos` e `ft_vendas` compartilhem o identificador `id_pedido`, não foi definido um relacionamento direto entre essas tabelas no modelo. As duas tabelas representam eventos com granularidades distintas e foram mantidas de forma independente, preservando seus respectivos objetivos analíticos.
+
+Da mesma forma, `ft_vendas` e `ft_pagamentos` não são relacionadas diretamente, evitando relacionamentos entre tabelas com múltiplos registros por pedido que poderiam resultar em multiplicação de linhas e duplicação de métricas durante as análises.
