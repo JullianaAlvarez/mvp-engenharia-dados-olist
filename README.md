@@ -230,4 +230,36 @@ O catálogo foi construído a partir do perfilamento dos dados realizado no Data
 
 A imagem abaixo apresenta um exemplo da documentação da tabela `bronze.orders` no Unity Catalog, contendo a descrição da tabela, os tipos de dados e os comentários cadastrados para seus campos.
 
-![Catálogo da tabela bronze.orders no Unity Catalog](images/catalog_bronze_orders.png)
+![Catálogo das tabelas bronze no Unity Catalog](images)
+
+### 3.3 Modelo Analítico
+
+Para a camada analítica foi adotada uma **modelagem dimensional baseada em Star Schema**, separando os eventos de negócio em tabelas fato e os atributos utilizados para contextualização das análises em tabelas dimensão.
+
+A definição do modelo foi realizada após a exploração das tabelas da camada Bronze, considerando principalmente a granularidade das fontes e as perguntas de negócio definidas para o projeto.
+
+Enquanto a camada Bronze preserva a nomenclatura original dos dados de origem, as tabelas do modelo analítico adotam uma nomenclatura padronizada em português, buscando maior clareza e consistência na utilização dos dados.
+
+Foram identificados três eventos com granularidades distintas:
+
+- **Pedido:** uma linha por `id_pedido`;
+- **Venda:** uma linha por item de pedido, identificada por `id_pedido` + `id_item_pedido`;
+- **Pagamento:** uma linha por registro de pagamento, identificada por `id_pedido` + `sequencial_pagamento`.
+
+A separação dessas informações em diferentes tabelas fato evita a multiplicação indevida de registros em relacionamentos entre tabelas com cardinalidade 1:N, como ocorre com itens e pagamentos de um mesmo pedido.
+
+O modelo analítico é composto pelas seguintes tabelas:
+
+| Tabela | Tipo | Granularidade | Finalidade |
+|---|---|---|---|
+| `ft_pedidos` | Fato | Uma linha por pedido (`id_pedido`) | Análises de pedidos, clientes e experiência |
+| `ft_vendas` | Fato | Uma linha por item (`id_pedido` + `id_item_pedido`) | Análises comerciais e de produtos |
+| `ft_pagamentos` | Fato | Uma linha por registro de pagamento (`id_pedido` + `sequencial_pagamento`) | Análises de meios de pagamento e parcelamento |
+| `dm_produto` | Dimensão | Uma linha por produto (`id_produto`) | Características e categorias dos produtos |
+| `dm_tempo` | Dimensão | Uma linha por data (`id_data`) | Análises temporais dos pedidos e vendas |
+
+A tabela `ft_vendas` mantém também os identificadores `id_vendedor` e `id_cliente_unico`, permitindo segmentações por vendedor e consumidor mesmo sem a criação de dimensões específicas para essas entidades no escopo atual do MVP.
+
+A dimensão `dm_tempo` é utilizada como referência para a data de compra, permitindo análises por dia, mês, trimestre e ano. As demais datas relacionadas ao ciclo do pedido permanecem como atributos da `ft_pedidos`.
+
+Devido à existência de múltiplos eventos de negócio com granularidades distintas, o modelo possui múltiplas tabelas fato compartilhando dimensões analíticas. Dessa forma, sua organização pode ser caracterizada como uma **constelação de fatos baseada em princípios de modelagem Star Schema**.
