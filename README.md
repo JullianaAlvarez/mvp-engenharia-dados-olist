@@ -260,6 +260,93 @@ O modelo analítico é composto pelas seguintes tabelas:
 
 A tabela `ft_vendas` mantém também os identificadores `id_vendedor` e `id_cliente_unico`, permitindo segmentações por vendedor e consumidor mesmo sem a criação de dimensões específicas para essas entidades no escopo atual do MVP.
 
-A dimensão `dm_tempo` é utilizada como referência para a data de compra, permitindo análises por dia, mês, trimestre e ano. As demais datas relacionadas ao ciclo do pedido permanecem como atributos da `ft_pedidos`.
-
 Devido à existência de múltiplos eventos de negócio com granularidades distintas, o modelo possui múltiplas tabelas fato compartilhando dimensões analíticas. Dessa forma, sua organização pode ser caracterizada como uma **constelação de fatos baseada em princípios de modelagem Star Schema**.
+
+#### 3.3.1 Estrutura das tabelas do modelo analítico
+
+A estrutura das tabelas foi definida considerando a granularidade de cada evento de negócio e as informações necessárias para responder às perguntas propostas no MVP.
+
+##### `ft_pedidos`
+
+Possui granularidade de **uma linha por pedido** e concentra informações relacionadas ao cliente, status do pedido, ciclo de entrega, valores consolidados e avaliação.
+
+| Campo | Descrição |
+|---|---|
+| `id_pedido` | Identificador único do pedido |
+| `id_cliente` | Identificador do cliente associado ao pedido |
+| `id_cliente_unico` | Identificador utilizado para reconhecer o mesmo consumidor em diferentes pedidos |
+| `cidade_cliente` | Cidade associada ao cliente no pedido |
+| `uf_cliente` | UF associada ao cliente no pedido |
+| `status_pedido` | Status do pedido |
+| `data_compra` | Identificador da data de compra para relacionamento com `dm_tempo` |
+| `data_hora_compra` | Data e hora de realização da compra |
+| `data_hora_aprovacao` | Data e hora de aprovação do pedido |
+| `data_hora_envio_transportadora` | Data e hora de envio do pedido à transportadora |
+| `data_hora_entrega_cliente` | Data e hora de entrega ao cliente |
+| `data_estimada_entrega` | Data estimada para entrega do pedido |
+| `qtd_itens` | Quantidade de itens presentes no pedido |
+| `valor_produtos` | Soma do valor dos itens do pedido |
+| `valor_frete` | Soma do valor de frete dos itens do pedido |
+| `valor_total_pedido` | Soma do valor dos produtos e do frete |
+| `qtd_avaliacoes` | Quantidade de avaliações associadas ao pedido |
+| `nota_media_avaliacao` | Média das notas das avaliações associadas ao pedido |
+
+##### `ft_vendas`
+
+Possui granularidade de **uma linha por item de pedido**, identificada pela combinação `id_pedido` + `id_item_pedido`.
+
+| Campo | Descrição |
+|---|---|
+| `id_pedido` | Identificador do pedido |
+| `id_item_pedido` | Número sequencial do item dentro do pedido |
+| `id_produto` | Identificador do produto |
+| `id_vendedor` | Identificador do vendedor responsável pelo item |
+| `id_cliente_unico` | Identificador do consumidor associado ao pedido |
+| `data_compra` | Identificador da data de compra para relacionamento com `dm_tempo` |
+| `valor_item` | Valor de venda do item |
+| `valor_frete` | Valor de frete associado ao item |
+
+##### `ft_pagamentos`
+
+Possui granularidade de **uma linha por registro de pagamento**, identificada pela combinação `id_pedido` + `sequencial_pagamento`.
+
+| Campo | Descrição |
+|---|---|
+| `id_pedido` | Identificador do pedido |
+| `sequencial_pagamento` | Sequência do registro de pagamento dentro do pedido |
+| `tipo_pagamento` | Meio de pagamento utilizado |
+| `qtd_parcelas` | Quantidade de parcelas associadas ao pagamento |
+| `valor_pagamento` | Valor registrado para o pagamento |
+
+##### `dm_produto`
+
+Possui granularidade de **uma linha por produto** e reúne os atributos utilizados para caracterização e segmentação dos produtos.
+
+| Campo | Descrição |
+|---|---|
+| `id_produto` | Identificador único do produto |
+| `categoria_produto` | Categoria original do produto em português |
+| `categoria_produto_ingles` | Tradução da categoria do produto para inglês |
+| `tamanho_nome_produto` | Quantidade de caracteres do nome do produto |
+| `tamanho_descricao_produto` | Quantidade de caracteres da descrição do produto |
+| `qtd_fotos_produto` | Quantidade de fotos cadastradas para o produto |
+| `peso_produto_g` | Peso do produto em gramas |
+| `comprimento_produto_cm` | Comprimento do produto em centímetros |
+| `altura_produto_cm` | Altura do produto em centímetros |
+| `largura_produto_cm` | Largura do produto em centímetros |
+
+##### `dm_tempo`
+
+Possui granularidade de **uma linha por data** e permite a realização de análises temporais em diferentes níveis de agregação.
+
+| Campo | Descrição |
+|---|---|
+| `data` | Data de referência da dimensão |
+| `dia` | Dia do mês |
+| `mes` | Número do mês |
+| `nome_mes` | Nome do mês |
+| `trimestre` | Trimestre do ano |
+| `ano` | Ano |
+
+A dimensão `dm_tempo` é utilizada como referência para a data de compra, permitindo análises por dia, mês, trimestre e ano. As demais datas relacionadas ao ciclo do pedido permanecem como atributos da ft_pedidos.
+
