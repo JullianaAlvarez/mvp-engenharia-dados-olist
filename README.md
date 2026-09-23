@@ -370,3 +370,73 @@ A relação entre `ft_pedidos` e `ft_pagamentos` representa o fato de que um ped
 Embora `ft_pedidos` e `ft_vendas` compartilhem o identificador `id_pedido`, não foi definido um relacionamento direto entre essas tabelas no modelo. As duas tabelas representam eventos com granularidades distintas e foram mantidas de forma independente, preservando seus respectivos objetivos analíticos.
 
 Da mesma forma, `ft_vendas` e `ft_pagamentos` não são relacionadas diretamente, evitando relacionamentos entre tabelas com múltiplos registros por pedido que poderiam resultar em multiplicação de linhas e duplicação de métricas durante as análises.
+
+## 4. Pipeline de Dados (WIP)
+
+O pipeline de dados foi estruturado seguindo a arquitetura medalhão, organizando o processamento em três camadas: **Bronze**, **Silver** e **Gold**.
+
+Para facilitar a organização, rastreabilidade e manutenção do processo, as etapas foram separadas em notebooks de acordo com suas responsabilidades:
+
+| Notebook | Etapa | Finalidade |
+|---|---|---|
+| `01_ingestao_exploracao_bronze` | Bronze | Obtenção dos dados, ingestão das fontes, profiling, catalogação e análises exploratórias |
+| `02_silver_qualidade` | Silver | Aplicação das regras de qualidade, tipagem, padronização e persistência dos dados tratados |
+| `03_gold_modelagem` | Gold | Integração das fontes tratadas e construção das tabelas fato e dimensão do modelo analítico |
+
+A camada **Bronze** preserva os dados provenientes das fontes com sua estrutura e granularidade originais. A camada **Silver** aplica as regras de qualidade e preparação necessárias para o consumo analítico. Por fim, a camada **Gold** integra os dados tratados e materializa o modelo dimensional definido para responder às perguntas de negócio do projeto.
+
+Os notebooks utilizados na implementação do pipeline serão disponibilizados no repositório do projeto:
+
+- [`01_ingestao_exploracao_bronze`](INSERIR_LINK_GITHUB)
+- [`02_silver_qualidade`](INSERIR_LINK_GITHUB)
+- [`03_gold_modelagem`](INSERIR_LINK_GITHUB)
+
+### 4.1 Persistência das Camadas
+
+As tabelas resultantes de cada etapa do pipeline foram persistidas no Databricks utilizando o formato Delta, organizadas nos schemas `bronze`, `silver` e `gold`.
+
+Na camada Silver foram materializadas as tabelas:
+
+- `silver.orders`
+- `silver.order_items`
+- `silver.products`
+- `silver.customers`
+- `silver.order_reviews`
+- `silver.order_payments`
+
+Nem todas as tabelas da camada Bronze originaram uma tabela independente na Silver. A tabela `category_translation` foi incorporada ao tratamento de `products`, enquanto os atributos da tabela `sellers` não foram necessários para o modelo analítico definido neste MVP. O identificador do vendedor foi preservado diretamente em `order_items`.
+
+#### Evidência da camada Silver
+
+![Tabelas da camada Silver](images/silver_tables.png)
+
+## 5. Qualidade e Transformação dos Dados (WIP)
+
+A análise de qualidade foi realizada a partir do profiling e das explorações da camada Bronze. Os tratamentos foram aplicados na camada Silver, buscando adequar tipos de dados, tratar inconsistências e padronizar informações sem alterar valores da fonte quando não existiam evidências suficientes para uma correção segura.
+
+Como princípio geral, valores ausentes ou atípicos não foram automaticamente substituídos. Quando não foi possível determinar o valor correto a partir dos dados disponíveis, a informação original foi preservada e a ocorrência documentada.
+
+### 5.1 Tratamentos realizados na camada Silver
+
+| Fonte | Problema ou característica identificada | Tratamento adotado |
+|---|---|---|
+| `orders` | Campos temporais armazenados como `STRING` | Conversão para `TIMESTAMP` |
+| `orders` | Datas de aprovação, envio e entrega ausentes, inclusive poucos casos em pedidos entregues | Valores nulos preservados por não existir informação suficiente para reconstrução das datas |
+| `order_items` | `shipping_limit_date` armazenada como `STRING` | Conversão para `TIMESTAMP` |
+| `order_items` | Quatro itens com limite de envio em 2020, aproximadamente três anos após a compra | Valores preservados e documentados como atípicos, sem imputação |
+| `order_items` | `price` e `freight_value` armazenados como `DOUBLE` | Conversão para `DECIMAL(10,2)` |
+| `products` | 610 produtos sem categoria e atributos descritivos | Categoria padronizada como `sem_categoria`; atributos quantitativos ausentes permaneceram nulos |
+| `products` | Duas categorias, totalizando 13 produtos, sem tradução | Utilização do nome original da categoria como alternativa à tradução |
+| `products` | Grafia `lenght` presente nos nomes de campos da fonte | Padronização para `length` |
+| `products` | Campos de tamanho do nome, descrição e quantidade de fotos armazenados como `DOUBLE` | Conversão para `INT` após validação dos valores |
+| `customers` | Não foram identificadas inconsistências que demandassem tratamento | Dados preservados sem alteração de conteúdo |
+| `order_reviews` | Datas armazenadas como `STRING` | Conversão para `TIMESTAMP` |
+| `order_reviews` | Títulos e mensagens opcionais com valores nulos | Nulos preservados por representarem ausência legítima de comentário |
+| `order_reviews` | Possibilidade de múltiplas avaliações por pedido | Registros preservados na granularidade original; consolidação realizada posteriormente na Gold |
+| `order_payments` | `payment_value` armazenado como `DOUBLE` | Conversão para `DECIMAL(10,2)` |
+| `order_payments` | Sequência e quantidade de parcelas armazenadas como `BIGINT` | Conversão para `INT` |
+| `order_payments` | 2 registros com zero parcelas, 3 com tipo `not_defined` e 9 com valor zero | Valores preservados por não existir evidência suficiente para determinar valores alternativos |
+
+### 5.2 Transformações da camada Gold
+
+*Esta seção será complementada após a construção das tabelas fato e dimensão, documentando os relacionamentos, agregações e campos derivados utilizados na materialização do modelo analítico.*
