@@ -218,19 +218,42 @@ Também foi identificada uma particularidade importante na base de clientes: o c
 
 ### 3.2 Catálogo de Dados
 
-As tabelas da camada Bronze foram documentadas utilizando o **Unity Catalog do Databricks**.
+As tabelas das camadas Bronze, Silver e Gold foram documentadas utilizando o **Unity Catalog do Databricks**.
 
-Para cada tabela foram cadastradas informações de contexto e origem dos dados. Para seus respectivos campos foram documentados o significado, o tipo de dado e o domínio observado, incluindo, conforme aplicável, intervalos de valores, categorias possíveis, possibilidade de valores nulos e características dos identificadores.
+Na camada Bronze, para cada tabela foram cadastradas informações de contexto e origem dos dados. Para seus respectivos campos foram documentados o significado, o tipo de dado e o domínio observado, incluindo, conforme aplicável, intervalos de valores, categorias possíveis, possibilidade de valores nulos e características dos identificadores.
 
-A origem dos dados também foi registrada nas descrições das tabelas, permitindo identificar o arquivo do dataset Olist responsável por cada objeto da camada Bronze.
+A origem dos dados também foi registrada nas descrições das tabelas Bronze, permitindo identificar o arquivo do dataset Olist responsável por cada objeto. O catálogo foi construído a partir do perfilamento realizado no Databricks, preservando nessa camada a estrutura recebida da fonte.
 
-O catálogo foi construído a partir do perfilamento dos dados realizado no Databricks, preservando na camada Bronze a estrutura recebida da fonte. Dessa forma, eventuais tratamentos, padronizações e regras de negócio são realizados apenas nas etapas posteriores do pipeline.
+Na camada Silver, foram documentadas as tabelas resultantes dos processos de qualidade e preparação dos dados, registrando o contexto de cada objeto e as principais alterações realizadas em relação à camada Bronze, como adequações de tipos, padronizações e enriquecimentos. Essa documentação permite acompanhar a evolução dos dados entre a fonte original e sua posterior utilização no modelo analítico.
 
-#### Evidência do catálogo
+Na camada Gold, a catalogação foi realizada após a construção do modelo analítico descrito na seção 3.3. Foram documentados o contexto e a granularidade de cada tabela fato e dimensão, além do significado, tipo e domínio dos campos utilizados para análise.
 
-A imagem abaixo apresenta um exemplo da documentação da tabela `bronze.orders` no Unity Catalog, contendo a descrição da tabela, os tipos de dados e os comentários cadastrados para seus campos.
+Para os campos derivados ou agregados, a documentação também registra as principais regras utilizadas em sua construção. Entre elas estão a geração dos atributos da dimensão de tempo, a consolidação dos valores dos itens por pedido e o cálculo da quantidade e da nota média das avaliações.
 
-![Catálogo das tabelas bronze no Unity Catalog](images)
+A linhagem dos dados foi registrada e validada por meio do **Unity Catalog**, permitindo acompanhar as dependências entre as tabelas ao longo das camadas Bronze, Silver e Gold e identificar as principais fontes utilizadas na construção dos objetos analíticos.
+
+| Tabela Gold | Principais origens |
+|---|---|
+| `dm_tempo` | `silver.orders` |
+| `dm_produto` | `silver.products` |
+| `ft_pagamentos` | `silver.order_payments` |
+| `ft_vendas` | `silver.order_items`, `silver.orders` e `silver.customers` |
+| `ft_pedidos` | `silver.orders`, `silver.customers`, `silver.order_items` e `silver.order_reviews` |
+
+As descrições detalhadas dos campos que compõem cada tabela Gold são apresentadas na seção **3.3.1 Estrutura das tabelas do modelo analítico**.
+
+#### Evidências do catálogo
+
+O link abaixo apresenta screenshots da documentação do schema `bronze` e `silver` no Unity Catalog, contendo a descrição da tabela, os tipos de dados e os comentários cadastrados para seus campos.
+
+[Catálogo das tabelas Bronze no Unity Catalog](images/catalogo_bronze)
+
+[Catálogo das tabelas Silver no Unity Catalog](images/catalogo_silver)
+
+A documentação da camada Gold segue o mesmo padrão, incluindo o contexto das tabelas, granularidade e descrição dos campos do modelo analítico.
+
+[Catálogo das tabelas Gold no Unity Catalog](images/catalogo_gold)
+
 
 ### 3.3 Modelo Analítico
 
@@ -256,7 +279,7 @@ O modelo analítico é composto pelas seguintes tabelas:
 | `ft_vendas` | Fato | Uma linha por item (`id_pedido` + `id_item_pedido`) | Análises comerciais e de produtos |
 | `ft_pagamentos` | Fato | Uma linha por registro de pagamento (`id_pedido` + `sequencial_pagamento`) | Análises de meios de pagamento e parcelamento |
 | `dm_produto` | Dimensão | Uma linha por produto (`id_produto`) | Características e categorias dos produtos |
-| `dm_tempo` | Dimensão | Uma linha por data (`id_data`) | Análises temporais dos pedidos e vendas |
+| `dm_tempo` | Dimensão | Uma linha por data (`data`) | Análises temporais dos pedidos e vendas |
 
 A tabela `ft_vendas` mantém também os identificadores `id_vendedor` e `id_cliente_unico`, permitindo segmentações por vendedor e consumidor mesmo sem a criação de dimensões específicas para essas entidades no escopo atual do MVP.
 
@@ -302,9 +325,9 @@ Possui granularidade de **uma linha por item de pedido**, identificada pela comb
 | `id_produto` | Identificador do produto |
 | `id_vendedor` | Identificador do vendedor responsável pelo item |
 | `id_cliente_unico` | Identificador do consumidor associado ao pedido |
-| `data_compra` | Identificador da data de compra para relacionamento com `dm_tempo` |
+| `data_compra` | Data de realização da compra utilizada para relacionamento com `dm_tempo` |
 | `valor_item` | Valor de venda do item |
-| `valor_frete` | Valor de frete associado ao item |
+| `valor_frete_item` | Valor de frete associado ao item |
 
 ##### `ft_pagamentos`
 
@@ -371,7 +394,7 @@ Embora `ft_pedidos` e `ft_vendas` compartilhem o identificador `id_pedido`, não
 
 Da mesma forma, `ft_vendas` e `ft_pagamentos` não são relacionadas diretamente, evitando relacionamentos entre tabelas com múltiplos registros por pedido que poderiam resultar em multiplicação de linhas e duplicação de métricas durante as análises.
 
-## 4. Pipeline de Dados (WIP)
+## 4. Pipeline de Dados
 
 O pipeline de dados foi estruturado seguindo a arquitetura medalhão, organizando o processamento em três camadas: **Bronze**, **Silver** e **Gold**.
 
@@ -410,7 +433,26 @@ Nem todas as tabelas da camada Bronze originaram uma tabela independente na Silv
 
 ![Tabelas da camada Silver](images/silver_tables.png)
 
-## 5. Qualidade e Transformação dos Dados (WIP)
+
+Após os processos de qualidade e preparação realizados na camada Silver, os dados foram transformados e integrados na camada Gold para construção do modelo analítico.
+
+A implementação da camada Gold foi realizada no notebook `03_gold_modelagem`, responsável pela materialização das tabelas fato e dimensão definidas durante a etapa de modelagem.
+
+Foram construídas cinco tabelas analíticas:
+
+- `dm_tempo`: dimensão utilizada para análises temporais;
+- `dm_produto`: dimensão contendo os atributos descritivos e físicos dos produtos;
+- `ft_pagamentos`: fato na granularidade de um registro por pedido e sequência de pagamento;
+- `ft_vendas`: fato na granularidade de um registro por item do pedido;
+- `ft_pedidos`: fato na granularidade de um registro por pedido.
+
+As tabelas foram persistidas no schema `workspace.gold` em formato Delta e validadas após sua criação quanto à granularidade, unicidade das chaves, preservação dos registros e consistência dos relacionamentos.
+
+#### Evidência da camada Gold
+
+![Tabelas da camada Gold](images/gold_tables.png)
+
+## 5. Qualidade e Transformação dos Dados
 
 A análise de qualidade foi realizada a partir do profiling e das explorações da camada Bronze. Os tratamentos foram aplicados na camada Silver, buscando adequar tipos de dados, tratar inconsistências e padronizar informações sem alterar valores da fonte quando não existiam evidências suficientes para uma correção segura.
 
@@ -437,6 +479,22 @@ Como princípio geral, valores ausentes ou atípicos não foram automaticamente 
 | `order_payments` | Sequência e quantidade de parcelas armazenadas como `BIGINT` | Conversão para `INT` |
 | `order_payments` | 2 registros com zero parcelas, 3 com tipo `not_defined` e 9 com valor zero | Valores preservados por não existir evidência suficiente para determinar valores alternativos |
 
-### 5.2 Transformações da camada Gold
+### 5.2 Transformações realizadas na camada Gold
 
-*Esta seção será complementada após a construção das tabelas fato e dimensão, documentando os relacionamentos, agregações e campos derivados utilizados na materialização do modelo analítico.*
+A camada Gold foi construída a partir das tabelas tratadas na camada Silver, com o objetivo de integrar as diferentes fontes e adequar os dados às granularidades definidas no modelo analítico.
+
+Diferentemente da camada Silver, concentrada principalmente em qualidade, tipagem e padronização, nesta etapa foram realizadas transformações de integração, agregação e derivação de atributos e métricas.
+
+| Tabela Gold | Principais transformações |
+|---|---|
+| `dm_tempo` | Construção de um calendário entre a menor e a maior data de compra observada nos pedidos. Derivação dos atributos dia, mês, nome do mês, trimestre e ano. |
+| `dm_produto` | Seleção dos atributos de produtos previamente tratados na Silver e adequação dos nomes dos campos para a nomenclatura em português adotada no modelo analítico. |
+| `ft_pagamentos` | Seleção e renomeação dos campos tratados de pagamentos, preservando a granularidade de pedido + sequência de pagamento. |
+| `ft_vendas` | Integração de itens, pedidos e clientes para construção da granularidade de venda por item. Inclusão do identificador único do cliente e da data da compra, além da adequação dos nomes dos campos para o modelo analítico. |
+| `ft_pedidos` | Integração de pedidos e clientes com agregações prévias de itens e avaliações. Foram calculadas quantidade de itens, valores de produtos, frete e total do pedido, além da quantidade de avaliações e nota média por pedido. |
+
+Para a construção de `ft_pedidos`, as tabelas de itens e avaliações foram agregadas separadamente antes dos relacionamentos com os pedidos. Essa estratégia evita a multiplicação de registros que poderia ocorrer em um relacionamento direto entre fontes com múltiplas ocorrências para o mesmo pedido.
+
+Pedidos sem itens foram preservados no modelo, recebendo valor `0` para quantidade de itens e métricas monetárias derivadas. Da mesma forma, pedidos sem avaliações receberam `0` em `qtd_avaliacoes`, enquanto `nota_media_avaliacao` permaneceu nula, evitando a atribuição artificial de uma nota inexistente.
+
+Como validação adicional, os valores de produtos e frete registrados em `ft_vendas` foram agregados e comparados com os valores consolidados em `ft_pedidos`. A comparação apresentou ausência de divergências tanto nos valores totais quanto na validação realizada pedido a pedido.
