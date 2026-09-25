@@ -582,7 +582,39 @@ Entre as dez categorias de maior valor vendido, **Relógios e Presentes** aprese
 #### Principais insights
 
 Os resultados evidenciam diferentes perfis de desempenho entre as categorias. Algumas apresentam relevância simultânea em volume e valor, como **Beleza e Saúde**, enquanto outras alcançam elevada participação financeira mesmo com menor participação em quantidade, como **Relógios e Presentes**.
-
 Por outro lado, categorias como **Cama, Mesa e Banho** apresentam maior peso em volume do que em valor vendido, indicando que seu desempenho comercial está mais associado à quantidade de itens comercializados.
 
 A análise conjunta das três métricas demonstra, portanto, que **volume de vendas, participação financeira e valor médio por item oferecem perspectivas complementares sobre o desempenho das categorias**. Avaliar apenas o valor vendido ou apenas a quantidade de itens poderia ocultar diferenças importantes no perfil comercial dos produtos.
+
+### 6.3 Distribuição geográfica e recompra dos clientes
+
+**Pergunta de negócio:** Como os clientes estão distribuídos geograficamente e qual é o comportamento de recompra?
+
+Para esta análise, foram considerados apenas os pedidos entregues (`delivered`), de forma que a distribuição geográfica e o comportamento de recompra representem relações de compra efetivamente concluídas.
+
+A localização dos clientes foi analisada a partir do estado associado aos pedidos. Para identificar recompras, foi utilizado o `id_cliente_unico`, que permite reconhecer um mesmo consumidor em diferentes pedidos.
+
+#### Distribuição geográfica dos clientes
+
+![Distribuição de clientes por estado](images/dataviz/distribuicao_clientes_estado.jpeg)
+
+A distribuição geográfica apresenta forte concentração no estado de **São Paulo**, que representa **41,92% dos clientes** com pedidos entregues. Na sequência aparecem **Rio de Janeiro (12,76%)** e **Minas Gerais (11,78%)**.
+
+Juntos, os três estados concentram **66,46% dos clientes**, evidenciando uma presença expressiva da região Sudeste na base analisada.
+
+#### Comportamento de recompra
+
+![Participação de clientes com compra única e recompra](images/dataviz/recompra_clientes.jpeg)
+
+A análise de recorrência mostra que **97,00% dos clientes realizaram apenas uma compra entregue** durante o período disponível na base, enquanto **3,00% realizaram dois ou mais pedidos**.
+
+Entre os clientes recorrentes, a maior parte realizou somente uma segunda compra: **2,76% do total de clientes possuem exatamente dois pedidos**, enquanto apenas **0,24% realizaram três ou mais pedidos**.
+
+#### Principais insights
+
+Os resultados evidenciam uma **forte concentração geográfica dos clientes**, principalmente em São Paulo e, de forma mais ampla, nos três principais estados do Sudeste analisados.
+
+Ao mesmo tempo, a recorrência observada é baixa: apenas **3% dos clientes apresentam mais de uma compra entregue** no período disponível. A combinação desses resultados mostra uma base caracterizada por alta concentração geográfica e predominância de consumidores com compra única.
+
+A taxa de recompra deve ser interpretada considerando a janela temporal disponível no dataset. Os dados permitem identificar a recorrência observada durante o período analisado, mas não permitem concluir sobre compras realizadas pelos mesmos consumidores antes ou depois da cobertura da base.
+
