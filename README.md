@@ -498,3 +498,45 @@ Para a construção de `ft_pedidos`, as tabelas de itens e avaliações foram ag
 Pedidos sem itens foram preservados no modelo, recebendo valor `0` para quantidade de itens e métricas monetárias derivadas. Da mesma forma, pedidos sem avaliações receberam `0` em `qtd_avaliacoes`, enquanto `nota_media_avaliacao` permaneceu nula, evitando a atribuição artificial de uma nota inexistente.
 
 Como validação adicional, os valores de produtos e frete registrados em `ft_vendas` foram agregados e comparados com os valores consolidados em `ft_pedidos`. A comparação apresentou ausência de divergências tanto nos valores totais quanto na validação realizada pedido a pedido.
+
+## 6. Análise de Dados
+
+A etapa final do projeto consiste na análise dos dados disponibilizados na camada Gold, com o objetivo de responder às perguntas de negócio definidas no início do MVP.
+
+As análises foram realizadas por meio de consultas SQL no Databricks e visualizações construídas a partir dos resultados obtidos. Para cada pergunta, buscou-se não apenas apresentar as métricas calculadas, mas também interpretar seu significado dentro do contexto do negócio.
+
+Nas análises temporais, foi identificado que os períodos nas extremidades da base apresentam cobertura parcial. Os registros de 2016 estão concentrados principalmente a partir de outubro, enquanto setembro e outubro de 2018 possuem volumes muito inferiores aos meses anteriores. Por esse motivo, quando necessária a avaliação de tendências ao longo do tempo, as interpretações foram concentradas no período entre **janeiro de 2017 e agosto de 2018**.
+
+### 6.1 Evolução do volume e valor dos pedidos
+
+**Pergunta de negócio:** Como evoluíram o volume de pedidos e o valor associado aos pedidos ao longo do período analisado?
+
+Para esta análise, foram considerados os pedidos realizados independentemente de seu status final, uma vez que o objetivo é observar o comportamento da demanda registrada na plataforma.
+
+O **volume de pedidos** corresponde à quantidade de pedidos realizados em cada mês. O **valor dos pedidos** corresponde à soma do valor dos produtos associados aos pedidos, sem considerar o valor do frete.
+
+A distribuição dos pedidos por status também foi analisada como visão complementar, permitindo avaliar se a evolução da demanda foi acompanhada por mudanças na participação de pedidos cancelados.
+
+#### Evolução mensal do volume de pedidos
+
+![Evolução mensal do volume de pedidos](images/dataviz/evolucao_pedidos.png)
+
+#### Evolução mensal do valor dos pedidos
+
+![Evolução mensal do valor dos pedidos](images/dataviz/evolucao_valor_pedidos.png)
+
+#### Evolução da taxa de cancelamento
+
+![Evolução mensal da taxa de cancelamento](images/dataviz/taxa_cancelamento.png)
+
+#### Principais insights
+
+A análise evidencia crescimento da demanda ao longo de 2017, com o volume mensal passando de 800 pedidos em janeiro para 4.631 em outubro. Em novembro ocorre um salto expressivo para 7.544 pedidos, maior volume observado no período, acompanhado por valor superior a R$ 1 milhão em produtos associados aos pedidos.
+
+A análise diária de novembro mostra uma forte concentração de pedidos em **24/11/2017**, data da Black Friday daquele ano. Nesse dia foram registrados **1.176 pedidos e aproximadamente R$ 152,7 mil em produtos**, os maiores valores diários do mês. O comportamento observado é consistente com um possível efeito da Black Friday sobre a demanda, embora a base não permita identificar diretamente se os pedidos foram originados pela campanha.
+
+Após o pico de novembro e a redução observada em dezembro, o volume retorna a um patamar elevado em 2018. Entre janeiro e agosto, foram registrados aproximadamente 6,2 mil a 7,3 mil pedidos por mês, indicando maior estabilidade em relação ao crescimento observado durante grande parte de 2017.
+
+A taxa de cancelamento permaneceu baixa durante o período comparável, mas apresentou oscilações pontuais relevantes. Destacam-se março de 2017 (1,23%) e fevereiro de 2018 (1,09%), ambos seguidos por reduções expressivas nos meses seguintes. Agosto de 2018 apresentou a maior taxa do período comparável, de **1,29%**.
+
+Apesar desses episódios, não foi observada uma trajetória contínua de crescimento da taxa de cancelamento. Os resultados indicam, portanto, expansão da demanda durante 2017 e manutenção de um patamar elevado em 2018, com evidência de sazonalidade relevante no período da Black Friday e taxas de cancelamento geralmente baixas, embora com picos específicos que podem justificar investigações adicionais.
