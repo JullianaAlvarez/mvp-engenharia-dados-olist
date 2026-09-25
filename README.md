@@ -540,3 +540,49 @@ Após o pico de novembro e a redução observada em dezembro, o volume retorna a
 A taxa de cancelamento permaneceu baixa durante o período comparável, mas apresentou oscilações pontuais relevantes. Destacam-se março de 2017 (1,23%) e fevereiro de 2018 (1,09%), ambos seguidos por reduções expressivas nos meses seguintes. Agosto de 2018 apresentou a maior taxa do período comparável, de **1,29%**.
 
 Apesar desses episódios, não foi observada uma trajetória contínua de crescimento da taxa de cancelamento. Os resultados indicam, portanto, expansão da demanda durante 2017 e manutenção de um patamar elevado em 2018, com evidência de sazonalidade relevante no período da Black Friday e taxas de cancelamento geralmente baixas, embora com picos específicos que podem justificar investigações adicionais.
+
+### 6.2 Desempenho das categorias de produtos
+
+**Pergunta de negócio:** Quais categorias de produtos possuem maior participação no valor vendido e no volume de vendas, e como se diferenciam em relação ao valor médio por item?
+
+Para esta análise, foram considerados apenas os itens pertencentes a **pedidos entregues (`delivered`)**, de forma que as métricas representem vendas efetivamente concluídas.
+
+O **volume de vendas** corresponde à quantidade de itens vendidos em cada categoria, enquanto o **valor vendido** corresponde à soma do valor dos produtos, desconsiderando o frete. Como métrica complementar, foi analisado o **valor médio por item**, permitindo identificar diferenças no perfil de preço entre as categorias.
+
+Para facilitar a visualização da distribuição do valor vendido entre o grande número de categorias existentes na base, as 30 categorias de maior valor vendido foram apresentadas individualmente e as demais foram agrupadas como **Outros**.
+
+#### Valor vendido por categoria
+
+![Valor vendido por categoria](images/dataviz/valor_vendido_categoria.png)
+
+A análise do valor vendido mostra que **Beleza e Saúde** apresenta a maior participação financeira entre as categorias, representando **9,33% do valor vendido**, seguida por **Relógios e Presentes (8,82%)** e **Cama, Mesa e Banho (7,74%)**.
+
+#### Participação no volume e no valor vendido
+
+![Participação no volume e no valor vendido por categoria](images/dataviz/participacao_volume_valor_categoria.png)
+
+A comparação entre participação no volume e no valor mostra que a relevância de uma categoria não está necessariamente associada apenas à quantidade de itens comercializados.
+
+**Beleza e Saúde** apresenta participação elevada nas duas perspectivas, correspondendo a **8,59% do volume de itens e 9,33% do valor vendido**.
+
+**Relógios e Presentes**, por outro lado, representa **5,32% do volume**, mas responde por **8,82% do valor vendido**, demonstrando uma participação financeira proporcionalmente superior ao seu peso em quantidade.
+
+O comportamento inverso pode ser observado em **Cama, Mesa e Banho**, categoria com a maior participação em volume (**9,94%**), mas responsável por **7,74% do valor vendido**. **Telefonia** também apresenta essa característica, correspondendo a **4,02% do volume e 2,34% do valor vendido**.
+
+#### Valor médio por item
+
+![Valor médio por item nas principais categorias](images/dataviz/valor_medio_item_categoria.png)
+
+A análise do valor médio ajuda a explicar parte das diferenças observadas entre participação em volume e participação financeira.
+
+Entre as dez categorias de maior valor vendido, **Relógios e Presentes** apresenta o maior valor médio por item, de **R$ 199,04**, contribuindo para que sua participação no valor vendido seja proporcionalmente superior à sua participação em volume.
+
+**Cool Stuff** também apresenta valor médio elevado, de **R$ 164,12**, enquanto **Cama, Mesa e Banho** apresenta média de **R$ 93,44** por item. Já **Móveis e Decoração**, apesar de estar entre as categorias de maior valor vendido, apresenta valor médio de **R$ 87,25**, evidenciando maior dependência do volume comercializado para composição de seu resultado.
+
+#### Principais insights
+
+Os resultados evidenciam diferentes perfis de desempenho entre as categorias. Algumas apresentam relevância simultânea em volume e valor, como **Beleza e Saúde**, enquanto outras alcançam elevada participação financeira mesmo com menor participação em quantidade, como **Relógios e Presentes**.
+
+Por outro lado, categorias como **Cama, Mesa e Banho** apresentam maior peso em volume do que em valor vendido, indicando que seu desempenho comercial está mais associado à quantidade de itens comercializados.
+
+A análise conjunta das três métricas demonstra, portanto, que **volume de vendas, participação financeira e valor médio por item oferecem perspectivas complementares sobre o desempenho das categorias**. Avaliar apenas o valor vendido ou apenas a quantidade de itens poderia ocultar diferenças importantes no perfil comercial dos produtos.
