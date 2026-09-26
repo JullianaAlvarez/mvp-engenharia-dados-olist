@@ -618,3 +618,46 @@ Ao mesmo tempo, a recorrência observada é baixa: apenas **3% dos clientes apre
 
 A taxa de recompra deve ser interpretada considerando a janela temporal disponível no dataset. Os dados permitem identificar a recorrência observada durante o período analisado, mas não permitem concluir sobre compras realizadas pelos mesmos consumidores antes ou depois da cobertura da base.
 
+### 6.4 Meios de pagamento e parcelamento
+
+**Pergunta de negócio:** Quais são as principais formas de pagamento utilizadas e como se distribuem o parcelamento e o uso de múltiplos meios de pagamento?
+
+Para esta análise, foram considerados os pagamentos associados a pedidos entregues (`delivered`). Como um mesmo pedido pode possuir mais de um registro e utilizar diferentes formas de pagamento, foram analisados tanto a participação dos meios nos pedidos quanto sua participação no valor total pago.
+
+#### Principais meios de pagamento
+
+![Participação dos meios de pagamento](images/dataviz/meios_pagamento.jpeg)
+
+O **cartão de crédito** é o principal meio de pagamento da base, estando presente em **77,02% dos pedidos** e concentrando **78,46% do valor pago**. O **boleto** aparece em segundo lugar, presente em **19,89% dos pedidos** e responsável por **17,96% do valor**.
+
+Voucher e cartão de débito apresentam participações significativamente menores. Como um mesmo pedido pode utilizar mais de um meio, a soma da participação dos meios nos pedidos pode ultrapassar 100%.
+
+#### Distribuição do parcelamento no cartão de crédito
+
+![Distribuição do número de parcelas](images/dataviz/distribuicao_parcelas.jpeg)
+
+Entre os pagamentos realizados com cartão de crédito, o pagamento em **uma parcela é a modalidade individual mais frequente, representando 33,20%**. Entretanto, considerando conjuntamente todas as demais faixas, aproximadamente **66,8% dos pagamentos foram parcelados em duas ou mais vezes**.
+
+As modalidades de duas e três parcelas representam, respectivamente, **16,19% e 13,63%** dos pagamentos com cartão, mostrando que o parcelamento está presente em parcela relevante das transações.
+
+#### Valor médio e número de parcelas
+
+![Valor médio por número de parcelas](images/dataviz/valor_medio_parcelas.jpeg)
+
+Além da frequência, observa-se uma tendência de valores médios mais elevados nas faixas de maior parcelamento. O valor médio passa de **R$ 95,60 nos pagamentos em uma parcela** para R$ 126,59 em duas, R$ 142,00 em três e R$ 208,54 em seis parcelas, chegando a **R$ 410,54 nos pagamentos em dez parcelas**.
+
+A relação não é estritamente crescente em todas as faixas, mas o comportamento observado sugere maior utilização de parcelamentos mais longos em pagamentos de maior valor.
+
+#### Utilização de múltiplos meios de pagamento
+
+![Utilização de múltiplos meios de pagamento](images/dataviz/multiplos_meios_pagamento.jpeg)
+
+A combinação de diferentes meios de pagamento em um mesmo pedido é pouco frequente. **97,74% dos pedidos utilizaram apenas um meio de pagamento**, enquanto **2,26% utilizaram dois ou mais meios distintos**.
+
+#### Principais insights
+
+Os resultados mostram uma forte predominância do **cartão de crédito**, tanto em utilização quanto em participação no valor pago. Além disso, embora o pagamento em uma única parcela seja a modalidade individual mais comum, o parcelamento representa a maior parte dos pagamentos realizados com cartão.
+
+A análise do valor médio sugere ainda uma associação entre compras de maior valor e faixas mais elevadas de parcelamento, embora esse comportamento não seja uniforme em todas as quantidades de parcelas.
+
+Por fim, a utilização de múltiplos meios em uma mesma compra apresenta baixa representatividade, indicando que a grande maioria dos pedidos é concluída utilizando uma única forma de pagamento.
