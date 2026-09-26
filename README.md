@@ -256,7 +256,7 @@ As descrições detalhadas dos campos que compõem cada tabela Gold são apresen
 
 Os links abaixo apresentam screenshots da documentação dos schemas `bronze`, `silver` e `gold` no Unity Catalog, contendo as descrições das tabelas, os tipos de dados e os comentários cadastrados para seus campos.
 
-[Catálogo das tabelas Bronze no Unity Catalog](images/catalogo_bronze)
+[Catálogo das tabelas Bronze no Unity Catalog](images/bronze_unit)
 
 [Catálogo das tabelas Silver no Unity Catalog](images/catalogo_silver)
 
@@ -441,7 +441,7 @@ Nem todas as tabelas da camada Bronze originaram uma tabela independente na Silv
 
 #### Evidência da camada Silver
 
-![Tabelas da camada Silver](images/silver_tables.png)
+![Tabelas da camada Silver](images/silver_catalog_unity.png)
 
 
 Após os processos de qualidade e preparação realizados na camada Silver, os dados foram transformados e integrados na camada Gold para construção do modelo analítico.
@@ -460,11 +460,11 @@ As tabelas foram persistidas no schema `workspace.gold` em formato Delta e valid
 
 #### Evidência da camada Gold
 
-![Tabelas da camada Gold](images/gold_tables.png)
+![Tabelas da camada Gold](images/gold_catalog_unity.png)
 
 #### Evidência da camada Bronze
 
-![Tabelas da camada Gold](images/bronze_tables.png)
+![Tabelas da camada Gold](images/bronze_catalog_unity.png)
 
 ## 5. Qualidade e Transformação dos Dados
 
