@@ -2,7 +2,7 @@
 
 ## Pipeline de Dados na Nuvem — Brazilian E-Commerce Olist
 
-Este projeto foi desenvolvido como MVP da disciplina de Engenharia de Dados, com o objetivo de construir um pipeline de dados em ambiente de nuvem.
+Este projeto foi desenvolvido como MVP da disciplina de Engenharia de Dados, com o objetivo de construir um pipeline de dados ponta a ponta em ambiente de nuvem para ingestão, organização, tratamento, modelagem e disponibilização para análise dos dados públicos de e-commerce da Olist. A solução busca transformar os dados brutos em um modelo analítico capaz de apoiar a investigação de aspectos comerciais, geográficos e operacionais dos pedidos e da relação entre o desempenho logístico e a experiência dos clientes.
 
 ## 1. Contexto de Negócio e Perguntas
 
@@ -21,7 +21,7 @@ Neste projeto, os dados são utilizados exclusivamente para fins acadêmicos, ma
 
 ### 1.2 Problema de Negócio
 
-O presente projeto busca compreender a evolução e as características das vendas realizadas por vendedores integrados ao ecossistema Olist em diferentes marketplaces brasileiros, identificando padrões relacionados ao desempenho comercial, às categorias de produtos, à distribuição geográfica e ao comportamento de compra dos clientes, além de explorar aspectos relacionados à operação logística e à experiência do consumidor.
+O presente projeto busca compreender a evolução e as características dos pedidos realizados no ecossistema Olist, identificando padrões relacionados ao desempenho comercial, às categorias de produtos, à distribuição geográfica e ao comportamento de compra dos clientes, além de explorar aspectos relacionados à operação logística e à experiência do consumidor.
 
 ### 1.3 Pergunta Central
 
