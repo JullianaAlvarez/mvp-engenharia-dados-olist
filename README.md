@@ -550,7 +550,7 @@ A análise diária de novembro mostra uma forte concentração de pedidos em **2
 
 Após o pico de novembro e a redução observada em dezembro, o volume retorna a um patamar elevado em 2018. Entre janeiro e agosto, foram registrados aproximadamente 6,2 mil a 7,3 mil pedidos por mês, indicando maior estabilidade em relação ao crescimento observado durante grande parte de 2017.
 
-A taxa de cancelamento permaneceu baixa durante o período comparável, mas apresentou oscilações pontuais relevantes. Destacam-se março de 2017 (1,23%) e fevereiro de 2018 (1,09%), ambos seguidos por reduções expressivas nos meses seguintes.
+A taxa de cancelamento permaneceu baixa durante o período comparável, mas apresentou oscilações pontuais. Destacam-se março de 2017 (**1,23%**), fevereiro de 2018 (**1,09%**) e agosto de 2018, que apresentou a maior taxa do período analisado, de **1,29%**.
 
 Apesar desses episódios, não foi observada uma trajetória contínua de crescimento da taxa de cancelamento. Os resultados indicam, portanto, expansão da demanda durante 2017 e manutenção de um patamar elevado em 2018, com evidência de sazonalidade relevante no período da Black Friday e taxas de cancelamento geralmente baixas, embora com picos específicos que podem justificar investigações adicionais.
 
