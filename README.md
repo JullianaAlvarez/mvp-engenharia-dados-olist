@@ -702,3 +702,21 @@ A diferença aparece tanto na nota média — **4,29 para entregas no prazo ou a
 Dessa forma, os dados indicam que o **cumprimento do prazo estimado de entrega está fortemente associado a uma melhor experiência de avaliação**, enquanto atrasos estão associados a uma maior incidência de avaliações negativas.
 
 A análise demonstra uma associação entre prazo de entrega e avaliação, mas não permite afirmar que o atraso seja, isoladamente, a causa das notas mais baixas, uma vez que outros aspectos da experiência do pedido também podem influenciar a avaliação do cliente.
+
+### 6.6 Discussão geral dos resultados
+
+A pergunta central deste projeto buscou compreender **como os aspectos comerciais, geográficos e operacionais caracterizam os pedidos realizados no ecossistema Olist e de que forma o desempenho logístico se relaciona com a experiência dos clientes**.
+
+A análise integrada dos dados permite caracterizar um ecossistema que apresentou expansão da demanda ao longo do período analisado, com um portfólio diversificado e diferentes perfis de desempenho entre as categorias. O resultado comercial não está associado apenas ao volume de itens vendidos: algumas categorias ganham relevância pela quantidade comercializada, enquanto outras se destacam pelo maior valor médio dos produtos.
+
+Do ponto de vista dos clientes, observa-se uma base geograficamente concentrada, principalmente nos estados do Sudeste, e marcada pela predominância de compras únicas dentro da janela temporal disponível. Esse comportamento indica que o volume observado no período está associado principalmente a uma ampla quantidade de consumidores com baixa recorrência, e não a um grupo expressivo de clientes realizando compras repetidas.
+
+O comportamento de pagamento complementa esse perfil ao demonstrar forte utilização do cartão de crédito e relevância do parcelamento. A presença de pagamentos parcelados, especialmente em transações de maior valor, evidencia a importância dessa modalidade como parte da dinâmica comercial observada no ecossistema.
+
+Na dimensão operacional, a maior parte dos pedidos foi entregue dentro da estimativa informada ao cliente. Entretanto, quando ocorre atraso, observa-se uma mudança expressiva no padrão das avaliações: entregas atrasadas estão associadas a notas médias inferiores e a uma concentração significativamente maior de avaliações negativas. Dessa forma, mesmo representando uma parcela minoritária dos pedidos, os atrasos se mostram relevantes para a experiência percebida pelo cliente.
+
+Em conjunto, os resultados desenham um cenário de **crescimento comercial sustentado por uma base ampla, porém pouco recorrente e geograficamente concentrada, com forte presença do crédito e do parcelamento e no qual o cumprimento da expectativa de entrega se destaca como um aspecto operacional fortemente associado à satisfação do cliente**.
+
+Assim, a análise demonstra que compreender o desempenho do e-commerce exige observar conjuntamente as diferentes etapas da jornada de compra. Características da demanda, do mix de produtos, dos clientes e das formas de pagamento ajudam a explicar como as vendas se estruturam, enquanto o desempenho da entrega evidencia como a execução operacional se relaciona com a experiência registrada após a compra.
+
+As conclusões são descritivas e estão limitadas à cobertura temporal e às informações disponíveis no dataset. As associações identificadas, especialmente entre atraso e avaliação, não devem ser interpretadas isoladamente como relações causais.
