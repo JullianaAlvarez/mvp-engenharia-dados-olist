@@ -2,6 +2,9 @@
 
 ## Pipeline de Dados na Nuvem — Brazilian E-Commerce Olist
 
+**Autora:** Julliana Alvarez da Silva  
+**Disciplina:** Engenharia de Dados
+
 Este projeto foi desenvolvido como MVP da disciplina de Engenharia de Dados, com o objetivo de construir um pipeline de dados ponta a ponta em ambiente de nuvem para ingestão, organização, tratamento, modelagem e disponibilização para análise dos dados públicos de e-commerce da Olist. A solução busca transformar os dados brutos em um modelo analítico capaz de apoiar a investigação de aspectos comerciais, geográficos e operacionais dos pedidos e da relação entre o desempenho logístico e a experiência dos clientes.
 
 ## 1. Contexto de Negócio e Perguntas
