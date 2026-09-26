@@ -131,7 +131,7 @@ Contém as avaliações realizadas pelos clientes após os pedidos.
 
 ---
 
-#### olist_order_payments_dataset
+#### `olist_order_payments_dataset`
 
 Contém informações sobre os pagamentos associados aos pedidos. Um mesmo pedido pode apresentar mais de um registro de pagamento.
 
@@ -144,7 +144,7 @@ Contém informações sobre os pagamentos associados aos pedidos. Um mesmo pedid
 
 ---
 
-#### product_category_name_translation
+#### `product_category_name_translation`
 
 Traduz o campo product_category_name para o inglês.
 
