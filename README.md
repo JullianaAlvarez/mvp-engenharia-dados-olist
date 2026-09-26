@@ -31,7 +31,7 @@ Para responder ao problema central, a análise será estruturada em cinco dimens
 
 1. **Comercial:** Como o volume de pedidos e o valor vendido evoluíram ao longo do período analisado?
 
-2. **Produtos:** Quais categorias de produtos apresentam maior participação no valor vendido e no volume de vendas, e como se diferenciam em relação ao ticket médio?
+2. **Produtos:** Quais categorias de produtos apresentam maior participação no valor vendido e no volume de vendas, e como se diferenciam em relação ao valor médio por item?
 
 3. **Clientes:** Como os clientes e pedidos estão distribuídos geograficamente e qual é o comportamento de recompra?
 
@@ -141,6 +141,16 @@ Contém informações sobre os pagamentos associados aos pedidos. Um mesmo pedid
 - payment_type: método de pagamento utilizado.
 - payment_installments: número de parcelas.
 - payment_value: valor da transação.
+
+---
+
+#### product_category_name_translation
+
+Traduz o campo product_category_name para o inglês.
+
+*Principais campos:*
+- product_category_name: categoria do produto.
+- product_category_name_english: categoria do produto em inglês.
 
 
 ### 1.5 Relacionamento entre os Dados
@@ -408,7 +418,7 @@ Para facilitar a organização, rastreabilidade e manutenção do processo, as e
 
 A camada **Bronze** preserva os dados provenientes das fontes com sua estrutura e granularidade originais. A camada **Silver** aplica as regras de qualidade e preparação necessárias para o consumo analítico. Por fim, a camada **Gold** integra os dados tratados e materializa o modelo dimensional definido para responder às perguntas de negócio do projeto.
 
-Os notebooks utilizados na implementação do pipeline serão disponibilizados no repositório do projeto:
+Os notebooks utilizados na implementação do pipeline estão disponíveis no repositório do projeto:
 
 - [`01_ingestao_exploracao_bronze`](01_ingestao_exploracao_bronze.ipynb)
 - [`02_silver_qualidade`](02_silver_qualidade.ipynb)
@@ -540,7 +550,7 @@ A análise diária de novembro mostra uma forte concentração de pedidos em **2
 
 Após o pico de novembro e a redução observada em dezembro, o volume retorna a um patamar elevado em 2018. Entre janeiro e agosto, foram registrados aproximadamente 6,2 mil a 7,3 mil pedidos por mês, indicando maior estabilidade em relação ao crescimento observado durante grande parte de 2017.
 
-A taxa de cancelamento permaneceu baixa durante o período comparável, mas apresentou oscilações pontuais relevantes. Destacam-se março de 2017 (1,23%) e fevereiro de 2018 (1,09%), ambos seguidos por reduções expressivas nos meses seguintes. Agosto de 2018 apresentou a maior taxa do período comparável, de **1,29%**.
+A taxa de cancelamento permaneceu baixa durante o período comparável, mas apresentou oscilações pontuais relevantes. Destacam-se março de 2017 (1,23%) e fevereiro de 2018 (1,09%), ambos seguidos por reduções expressivas nos meses seguintes.
 
 Apesar desses episódios, não foi observada uma trajetória contínua de crescimento da taxa de cancelamento. Os resultados indicam, portanto, expansão da demanda durante 2017 e manutenção de um patamar elevado em 2018, com evidência de sazonalidade relevante no período da Black Friday e taxas de cancelamento geralmente baixas, embora com picos específicos que podem justificar investigações adicionais.
 
