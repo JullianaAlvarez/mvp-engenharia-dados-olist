@@ -410,9 +410,9 @@ A camada **Bronze** preserva os dados provenientes das fontes com sua estrutura 
 
 Os notebooks utilizados na implementação do pipeline serão disponibilizados no repositório do projeto:
 
-- [`01_ingestao_exploracao_bronze`](INSERIR_LINK_GITHUB)
-- [`02_silver_qualidade`](INSERIR_LINK_GITHUB)
-- [`03_gold_modelagem`](INSERIR_LINK_GITHUB)
+- [`01_ingestao_exploracao_bronze`](01_ingestao_exploracao_bronze.ipynb)
+- [`02_silver_qualidade`](02_silver_qualidade.ipynb)
+- [`03_gold_modelagem`](03_gold_modelagem.ipynb)
 
 ### 4.1 Persistência das Camadas
 
@@ -503,7 +503,10 @@ Como validação adicional, os valores de produtos e frete registrados em `ft_ve
 
 A etapa final do projeto consiste na análise dos dados disponibilizados na camada Gold, com o objetivo de responder às perguntas de negócio definidas no início do MVP.
 
-As análises foram realizadas por meio de consultas SQL no Databricks e visualizações construídas a partir dos resultados obtidos. Para cada pergunta, buscou-se não apenas apresentar as métricas calculadas, mas também interpretar seu significado dentro do contexto do negócio.
+As análises foram realizadas por meio de consultas SQL no Databricks e visualizações construídas a partir dos resultados obtidos. 
+As consultas foram salvas e disponibilizadas no projeto.
+- [`04_analise_dados`](04_analise_dados.ipynb)
+Para cada pergunta, buscou-se não apenas apresentar as métricas calculadas, mas também interpretar seu significado dentro do contexto do negócio.
 
 Nas análises temporais, foi identificado que os períodos nas extremidades da base apresentam cobertura parcial. Os registros de 2016 estão concentrados principalmente a partir de outubro, enquanto setembro e outubro de 2018 possuem volumes muito inferiores aos meses anteriores. Por esse motivo, quando necessária a avaliação de tendências ao longo do tempo, as interpretações foram concentradas no período entre **janeiro de 2017 e agosto de 2018**.
 
