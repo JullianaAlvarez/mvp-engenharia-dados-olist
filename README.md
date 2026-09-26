@@ -41,7 +41,7 @@ Para responder ao problema central, a análise será estruturada em cinco dimens
 
 ### 1.4 Estrutura dos Dados Brutos
 
-O dataset da Olist é composto por diferentes arquivos relacionados entre si por identificadores de pedidos, clientes, produtos e vendedores. Para o desenvolvimento deste MVP, serão utilizadas as tabelas descritas abaixo.
+O dataset da Olist é composto por diferentes arquivos relacionados entre si por identificadores de pedidos, clientes, produtos e vendedores. Para o desenvolvimento deste MVP, foram utilizadas as tabelas descritas abaixo.
 
 #### `olist_orders_dataset`
 
