@@ -135,12 +135,12 @@ Contém as avaliações realizadas pelos clientes após os pedidos.
 
 Contém informações sobre os pagamentos associados aos pedidos. Um mesmo pedido pode apresentar mais de um registro de pagamento.
 
-*Principais campos:*
-- order_id: identificador do pedido.
-- payment_sequential: sequência do pagamento dentro do pedido.
-- payment_type: método de pagamento utilizado.
-- payment_installments: número de parcelas.
-- payment_value: valor da transação.
+**Principais campos:**
+- `order_id`: identificador do pedido.
+- `payment_sequential`: sequência do pagamento dentro do pedido.
+- `payment_type`: método de pagamento utilizado.
+- `payment_installments`: número de parcelas.
+- `payment_value`: valor da transação.
 
 ---
 
@@ -148,9 +148,9 @@ Contém informações sobre os pagamentos associados aos pedidos. Um mesmo pedid
 
 Traduz o campo product_category_name para o inglês.
 
-*Principais campos:*
-- product_category_name: categoria do produto.
-- product_category_name_english: categoria do produto em inglês.
+**Principais campos:**
+- `product_category_name`: categoria do produto.
+- `product_category_name_english`: categoria do produto em inglês.
 
 
 ### 1.5 Relacionamento entre os Dados
