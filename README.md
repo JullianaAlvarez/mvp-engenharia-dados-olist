@@ -661,3 +661,44 @@ Os resultados mostram uma forte predominância do **cartão de crédito**, tanto
 A análise do valor médio sugere ainda uma associação entre compras de maior valor e faixas mais elevadas de parcelamento, embora esse comportamento não seja uniforme em todas as quantidades de parcelas.
 
 Por fim, a utilização de múltiplos meios em uma mesma compra apresenta baixa representatividade, indicando que a grande maioria dos pedidos é concluída utilizando uma única forma de pagamento.
+
+### 6.5 Prazo de entrega e avaliação dos clientes
+
+**Pergunta de negócio:** Pedidos entregues após a data estimada apresentam avaliações diferentes daqueles entregues no prazo ou antecipadamente?
+
+Para esta análise, foram considerados apenas pedidos com status `delivered` e com informações disponíveis sobre a data efetiva e a data estimada de entrega.
+
+Os pedidos foram classificados em dois grupos:
+
+- **No prazo ou antecipado:** pedidos entregues na data estimada ou antes dela;
+- **Atrasado:** pedidos entregues após a data estimada.
+
+A experiência do cliente foi analisada por meio da nota média de avaliação consolidada por pedido. Pedidos sem avaliação não foram considerados no cálculo das notas médias.
+
+#### Nota média por cumprimento do prazo
+
+![Nota média por cumprimento do prazo](images/dataviz/nota_media_prazo_entrega.jpeg)
+
+A maior parte dos pedidos foi entregue dentro da estimativa: **93,23% das entregas ocorreram no prazo ou antecipadamente**, enquanto **6,77% foram realizadas após a data estimada**.
+
+Apesar da baixa participação dos atrasos no total de entregas, observa-se uma diferença expressiva na avaliação dos dois grupos. Pedidos entregues no prazo ou antecipadamente apresentam **nota média de 4,29**, enquanto pedidos atrasados apresentam média de apenas **2,27**, uma diferença de **2,02 pontos** na escala de avaliação de 1 a 5.
+
+#### Distribuição das avaliações por cumprimento do prazo
+
+![Distribuição das avaliações por cumprimento do prazo](images/dataviz/distribuicao_notas_prazo_entrega.jpeg)
+
+A distribuição das notas evidencia que a diferença entre os grupos não se limita à média das avaliações.
+
+Entre os pedidos atrasados, **53,69% receberam nota 1**, enquanto apenas **16,53% receberam nota 5**. Considerando conjuntamente as notas 1 e 2, **62,36% das avaliações de pedidos atrasados estão concentradas nas duas menores notas**.
+
+Entre os pedidos entregues no prazo ou antecipadamente, o comportamento é praticamente inverso: **62,27% receberam nota 5**, enquanto apenas **6,58% receberam nota 1**. As notas 1 e 2 representam conjuntamente apenas **9,23% das avaliações desse grupo**.
+
+#### Principais insights
+
+Os resultados mostram uma associação relevante entre o cumprimento da estimativa de entrega e a avaliação dos clientes. Embora os atrasos representem apenas **6,77% dos pedidos entregues analisados**, sua ocorrência está associada a avaliações significativamente inferiores.
+
+A diferença aparece tanto na nota média — **4,29 para entregas no prazo ou antecipadas contra 2,27 para entregas atrasadas** — quanto na distribuição das avaliações. Enquanto pedidos dentro da estimativa apresentam forte concentração de notas máximas, os pedidos atrasados apresentam concentração expressiva de notas mínimas.
+
+Dessa forma, os dados indicam que o **cumprimento do prazo estimado de entrega está fortemente associado a uma melhor experiência de avaliação**, enquanto atrasos estão associados a uma maior incidência de avaliações negativas.
+
+A análise demonstra uma associação entre prazo de entrega e avaliação, mas não permite afirmar que o atraso seja, isoladamente, a causa das notas mais baixas, uma vez que outros aspectos da experiência do pedido também podem influenciar a avaliação do cliente.
