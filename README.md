@@ -462,6 +462,10 @@ As tabelas foram persistidas no schema `workspace.gold` em formato Delta e valid
 
 ![Tabelas da camada Gold](images/gold_tables.png)
 
+#### Evidência da camada Bronze
+
+![Tabelas da camada Gold](images/bronze_tables.png)
+
 ## 5. Qualidade e Transformação dos Dados
 
 A análise de qualidade foi realizada a partir do profiling e das explorações da camada Bronze. Os tratamentos foram aplicados na camada Silver, buscando adequar tipos de dados, tratar inconsistências e padronizar informações sem alterar valores da fonte quando não existiam evidências suficientes para uma correção segura.
