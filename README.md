@@ -254,7 +254,7 @@ As descrições detalhadas dos campos que compõem cada tabela Gold são apresen
 
 #### Evidências do catálogo
 
-O link abaixo apresenta screenshots da documentação do schema `bronze` e `silver` no Unity Catalog, contendo a descrição da tabela, os tipos de dados e os comentários cadastrados para seus campos.
+Os links abaixo apresentam screenshots da documentação dos schemas `bronze`, `silver` e `gold` no Unity Catalog, contendo as descrições das tabelas, os tipos de dados e os comentários cadastrados para seus campos.
 
 [Catálogo das tabelas Bronze no Unity Catalog](images/catalogo_bronze)
 
