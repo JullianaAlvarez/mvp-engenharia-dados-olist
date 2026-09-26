@@ -267,7 +267,7 @@ A documentação da camada Gold segue o mesmo padrão, incluindo o contexto das 
 
 ### 3.3 Modelo Analítico
 
-Para a camada analítica foi adotada uma **modelagem dimensional baseada em Star Schema**, separando os eventos de negócio em tabelas fato e os atributos utilizados para contextualização das análises em tabelas dimensão.
+Para a camada analítica foi adotada uma modelagem dimensional organizada como uma constelação de fatos, baseada em princípios de Star Schema, separando os diferentes eventos de negócio em tabelas fato e os atributos utilizados para contextualização das análises em tabelas dimensão.
 
 A definição do modelo foi realizada após a exploração das tabelas da camada Bronze, considerando principalmente a granularidade das fontes e as perguntas de negócio definidas para o projeto.
 
