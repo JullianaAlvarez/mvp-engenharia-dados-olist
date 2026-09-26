@@ -720,3 +720,22 @@ Em conjunto, os resultados desenham um cenário de **crescimento comercial suste
 Assim, a análise demonstra que compreender o desempenho do e-commerce exige observar conjuntamente as diferentes etapas da jornada de compra. Características da demanda, do mix de produtos, dos clientes e das formas de pagamento ajudam a explicar como as vendas se estruturam, enquanto o desempenho da entrega evidencia como a execução operacional se relaciona com a experiência registrada após a compra.
 
 As conclusões são descritivas e estão limitadas à cobertura temporal e às informações disponíveis no dataset. As associações identificadas, especialmente entre atraso e avaliação, não devem ser interpretadas isoladamente como relações causais.
+
+
+## 7. Autoavaliação
+
+Ao início deste projeto, o objetivo definido foi construir um pipeline de dados ponta a ponta na nuvem que permitisse organizar e transformar os dados públicos de e-commerce da Olist em informações adequadas para análise, buscando compreender como aspectos comerciais, geográficos e operacionais caracterizam os pedidos realizados no ecossistema e como o desempenho logístico se relaciona com a experiência dos clientes.
+
+Considero que os objetivos propostos foram atingidos. A partir dos dados brutos, foi possível construir um pipeline estruturado nas camadas Bronze, Silver e Gold, contemplando ingestão, persistência, tratamento de qualidade, modelagem, catalogação e disponibilização dos dados para análise. O modelo final permitiu responder às perguntas de negócio definidas no início do projeto e construir uma visão integrada sobre vendas, produtos, clientes, pagamentos e experiência de entrega.
+
+Uma das principais dificuldades encontradas durante o desenvolvimento foi compreender corretamente a granularidade e os relacionamentos entre as diferentes fontes. Um mesmo pedido pode possuir múltiplos itens, pagamentos e avaliações, o que exigiu atenção durante a modelagem para evitar multiplicação de registros e distorção das métricas. A identificação da diferença entre `customer_id` e `customer_unique_id` também foi importante para que a análise de recorrência dos clientes representasse corretamente o comportamento disponível na base.
+
+Durante essa etapa, também foi identificado que alguns pedidos possuíam mais de uma avaliação associada. Como a tabela analítica de pedidos deveria manter a granularidade de um registro por pedido, foi necessário definir uma regra para consolidação dessas avaliações. Optou-se pela utilização da **nota média das avaliações por pedido**, preservando também a quantidade de avaliações associadas. A decisão foi considerada adequada ao escopo do MVP após a análise exploratória demonstrar que os pedidos com múltiplas avaliações representavam uma parcela pequena da base, reduzindo o impacto dessa consolidação sobre o comportamento geral das avaliações.
+
+Outro desafio foi definir quais tratamentos deveriam ser realizados na camada Silver sem alterar informações válidas da fonte. A presença de valores nulos, categorias sem tradução e situações atípicas exigiu uma análise do significado de cada campo antes da definição das regras de qualidade, evitando tratamentos automáticos que pudessem modificar o comportamento original dos dados.
+
+A etapa analítica também trouxe o desafio de transformar perguntas de negócio em métricas coerentes com a granularidade do modelo. Ao longo das análises, foi necessário definir critérios como considerar apenas pedidos entregues em determinadas perguntas, diferenciar participação em volume e em valor e interpretar associações sem assumir relações causais que os dados não permitem comprovar.
+
+Como trabalhos futuros, o pipeline poderia ser evoluído com mecanismos de **orquestração e execução automatizada**, além da implementação de **testes automatizados de qualidade e integridade dos dados** entre as camadas. O escopo analítico também poderia ser ampliado com análises geográficas mais detalhadas, utilização dos dados dos vendedores e aprofundamento do comportamento de recompra e da relação entre logística e avaliação dos clientes.
+
+Essas evoluções permitiriam transformar o MVP em uma solução mais próxima de um pipeline produtivo e, ao mesmo tempo, ampliar seu potencial como projeto de portfólio, demonstrando não apenas a construção da arquitetura de dados, mas também sua manutenção, monitoramento e utilização para geração contínua de informações de negócio.
